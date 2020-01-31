@@ -61,7 +61,7 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .post('/api/colors', newColor)
       .then(res => {
-        updateColors(res)
+        setNewColor(res)
         refreshPage()
         console.log(res.data)
       })
@@ -139,7 +139,7 @@ const ColorList = ({ colors, updateColors }) => {
                   onChange={handleChange}
                   placeholder='Hex Color'
                   />
-                <button onClick={addNewColor}>Add New Color</button>
+                <button onClick={addNewColor} className='colors-wrap'>Add New Color</button>
               </form>
     </div>
   );
