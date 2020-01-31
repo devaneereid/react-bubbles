@@ -19,27 +19,29 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const saveEdit = e => {
-    e.preventDefault();
+    // e.preventDefault();
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
     axiosWithAuth()
       .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
-      .then(response => {
-        // setColorToEdit(response.data)
-        console.log(response)
+      .then(res => {
+        setColorToEdit(res.data)
+        setEditing(false)
+        console.log(res)
       })
       .catch(err => console.log('Error', err))
   };
 
-  const deleteColor = color => {
+  const deleteColor = (color) => {
     // make a delete request to delete this color
     axiosWithAuth()
       .delete(`/api/colors/${color.id}`)
       .then(res => {
-        // setColorToEdit(res)
-        colors.setItems(res.data)
-        colors.history.push(`/bubblepage`);
+        setColorToEdit(res)
+        refreshPage()
+        // colors.setItems(res.data)
+        // colors.history.push(`/bubblepage`);
       })
       .catch(err => console.log('ColorList Error', err));
   };
@@ -60,6 +62,7 @@ const ColorList = ({ colors, updateColors }) => {
       .post('/api/colors', newColor)
       .then(res => {
         updateColors(res)
+        refreshPage()
         console.log(res.data)
       })
       .catch(err => {
