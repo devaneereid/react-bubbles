@@ -139,7 +139,7 @@ const ColorList = ({ colors, updateColors }) => {
                   onChange={handleChange}
                   placeholder='Hex Color'
                   />
-                <button onClick={addNewColor} className='colors-wrap'>Add New Color</button>
+                <button onClick={addNewColor}>Add New Color</button>
               </form>
     </div>
   );
