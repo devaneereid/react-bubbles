@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const Login = props => {
+const Login = (props) => {
   const [data, setData] = useState({
     username: '',
     password: ''
@@ -13,7 +13,7 @@ const Login = props => {
     setData({
       ...data,
       [e.target.name]: e.target.value
-    });
+    })
   };
 
   const login = e => {
