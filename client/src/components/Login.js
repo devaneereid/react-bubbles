@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const Login = () => {
+const Login = props => {
   const [data, setData] = useState({
     username: '',
     password: ''
@@ -15,11 +16,22 @@ const Login = () => {
     });
   };
 
+  const login = e => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post('/api/login', data)
+      .then(res => {
+        localStorage.setItem('token', res.data.payload);
+        props.history.push('/bubblepage');
+      })
+      .catch(err => console.log(err, 'Login to Continue'));
+  };
+
   return (
     <>
       <h1>Welcome to the Bubble App!</h1>
-        <p>Build a login page here</p>
-          <form>
+        {/* <p>Build a login page here</p> */}
+          <form onSubmit={login}>
             <input
               type='text'
               name='username'
@@ -29,7 +41,7 @@ const Login = () => {
               />
             <input
               type='password'
-              name='username'
+              name='password'
               value={data.password}
               onChange={handleChange}
               placeholder='Password'
